@@ -1,0 +1,92 @@
+﻿using Ado.NET.Models;
+using Microsoft.Data.SqlClient;
+using System.Data;
+
+internal class Program
+{
+    const string CONNECTION_STRING = "Server=DESKTOP-IJ4RAPV;Database=BB203Db;Trusted_Connection=True;TrustServerCertificate=True;";
+    //ORM
+    private static void Main(string[] args)
+    {
+        //Console.WriteLine(GetStudentNameById(11));
+        //CreateStudent("Rasul", 40, "v@code.edu.az", 99);
+        GetAllStudents();
+        foreach (var student in GetAllStudents())
+        {
+            Console.WriteLine(student.ToString());
+        }
+    }
+    public static string? GetStudentNameById(int id)
+    {
+        using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+        {
+            connection.Open();
+            //string query = $"SELECT Name from NewStudents where Id = {id}"; // SQL injection
+
+            string query = "SELECT Name from NewStudents where Id = @Id";
+            using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+            {
+                sqlCommand.Parameters.AddWithValue("@Id", id);
+                string? name = sqlCommand.ExecuteScalar()?.ToString();
+                return name;
+            }
+        };
+    }
+    public static void CreateStudent(string name, int age, string email, int point)
+    {
+        using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+        {
+            connection.Open();
+            string query = "INSERT into NewStudents (Name,Age,Email,Point) VALUES (@name,@age,@email,@grade)";
+            using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+            {
+                sqlCommand.Parameters.AddWithValue("@name", name);
+                sqlCommand.Parameters.AddWithValue("@age", age);
+                sqlCommand.Parameters.AddWithValue("@email", email);
+                sqlCommand.Parameters.AddWithValue("@grade", point);
+                int result = sqlCommand.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    Console.WriteLine(result);
+                    Console.WriteLine("Insert student");
+                }
+                else
+                {
+                    Console.WriteLine("");
+                }
+            }
+        }
+    }
+    public static List<Student> GetAllStudents()
+    {
+        using (SqlConnection sqlConnection = new SqlConnection(CONNECTION_STRING))
+        {
+            sqlConnection.Open();
+            string query = "SELECT * FROM NewStudents";
+            using (SqlCommand command = new SqlCommand(query, sqlConnection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    List<Student> students = new List<Student>();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            students.Add(new Student()
+                            {
+                                Id = int.Parse(reader["Id"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                Age = int.Parse(reader["Age"].ToString()),
+                                Email = reader["Email"].ToString(),
+                                Point = int.Parse(reader["Point"].ToString())
+                            });
+                        }
+                    }
+                    return students;
+                }
+            }
+
+        }
+    }
+
+}
