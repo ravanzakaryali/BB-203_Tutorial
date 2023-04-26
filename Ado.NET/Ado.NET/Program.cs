@@ -64,61 +64,61 @@ internal class Program
     //        }
     //    };
     //}
-    //public static void CreateStudent(string name, int age, string email, int point)
-    //{
-    //    using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
-    //    {
-    //        connection.Open();
-    //        string query = "INSERT into NewStudents (Name,Age,Email,Point) VALUES (@name,@age,@email,@grade)";
-    //        using (SqlCommand sqlCommand = new SqlCommand(query, connection))
-    //        {
-    //            sqlCommand.Parameters.AddWithValue("@name", name);
-    //            sqlCommand.Parameters.AddWithValue("@age", age);
-    //            sqlCommand.Parameters.AddWithValue("@email", email);
-    //            sqlCommand.Parameters.AddWithValue("@grade", point);
-    //            int result = sqlCommand.ExecuteNonQuery(); // SQL deki n sayda row affected  (Insert,Delete,Update)
-    //            if (result > 0)
-    //            {
-    //                Console.WriteLine(result);
-    //                Console.WriteLine("Insert student");
-    //            }
-    //            else
-    //            {
-    //                Console.WriteLine("");
-    //            }
-    //        }
-    //    }
-    //}
-    //public static List<Student> GetAllStudents()
-    //{
-    //    using (SqlConnection sqlConnection = new SqlConnection(CONNECTION_STRING))
-    //    {
-    //        sqlConnection.Open();
-    //        string query = "SELECT * FROM NewStudents";
-    //        using (SqlCommand command = new SqlCommand(query, sqlConnection))
-    //        {
-    //            using (SqlDataReader reader = command.ExecuteReader()) // SELECT le data geldikde onu her hansi bir classa daxil etdikde
-    //            {
-    //                List<Student> students = new List<Student>();
-    //                if (reader.HasRows)
-    //                {
-    //                    while (reader.Read())
-    //                    {
-    //                        students.Add(new Student()
-    //                        {
-    //                            Id = int.Parse(reader["Id"].ToString()),
-    //                            Name = reader["Name"].ToString(),
-    //                            Age = int.Parse(reader["Age"].ToString()),
-    //                            Email = reader["Email"].ToString(),
-    //                            Point = int.Parse(reader["Point"].ToString())
-    //                        });
-    //                    }
-    //                }
-    //                return students;
-    //            }
-    //        }
+    public static void CreateStudent(string name, int age, string email, int point)
+    {
+        using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+        {
+            connection.Open();
+            string query = "INSERT into NewStudents (Name,Age,Email,Point) VALUES (@name,@age,@email,@grade)";
+            using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+            {
+                sqlCommand.Parameters.AddWithValue("@name", name);
+                sqlCommand.Parameters.AddWithValue("@age", age);
+                sqlCommand.Parameters.AddWithValue("@email", email);
+                sqlCommand.Parameters.AddWithValue("@grade", point);
+                int result = sqlCommand.ExecuteNonQuery(); // SQL deki n sayda row affected  (Insert,Delete,Update)
+                if (result > 0)
+                {
+                    Console.WriteLine(result);
+                    Console.WriteLine("Insert student");
+                }
+                else
+                {
+                    Console.WriteLine("");
+                }
+            }
+        }
+    }
+    public static List<Student> GetAllStudents()
+    {
+        using (SqlConnection sqlConnection = new SqlConnection(CONNECTION_STRING))
+        {
+            sqlConnection.Open();
+            string query = "SELECT * FROM NewStudents";
+            using (SqlCommand command = new SqlCommand(query, sqlConnection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader()) // SELECT le data geldikde onu her hansi bir classa daxil etdikde
+                {
+                    List<Student> students = new List<Student>();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            students.Add(new Student()
+                            {
+                                Id = int.Parse(reader["Id"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                Age = int.Parse(reader["Age"].ToString()),
+                                Email = reader["Email"].ToString(),
+                                Point = int.Parse(reader["Point"].ToString())
+                            });
+                        }
+                    }
+                    return students;
+                }
+            }
 
-    //    }
-    //}
+        }
+    }
 
 }
