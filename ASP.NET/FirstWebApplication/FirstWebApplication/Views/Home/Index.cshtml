@@ -1,0 +1,23 @@
+﻿@*@{
+    int count = 9;
+    int[] ints = { 1, 32, 21 };
+}
+
+@{
+    <ul>
+        @foreach (int item in ints)
+        {
+            <li>@item</li>
+        }
+    </ul>
+    if (count == 10)
+    {
+        <h1>Count oldu 10 ona gore salam</h1>
+    }
+    else
+    {
+        <h1>Salam vermirem</h1>
+    }
+}*@
+
+<h1>Index page</h1>
