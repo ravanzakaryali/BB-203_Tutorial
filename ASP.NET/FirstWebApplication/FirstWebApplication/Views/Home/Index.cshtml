@@ -20,4 +20,18 @@
     }
 }*@
 
-<h1>Index page</h1>
+@*<h1>@ViewBag.Sahbaz</h1>*@
+@*<h1>@ViewData["Name"]</h1>*@
+@*<h1>@TempData["Name"]</h1>*@
+
+@model SchoolVM;
+
+@foreach (Student item in Model.Students)
+{
+    <h1>@item.Name</h1>
+}
+
+@foreach (Book item in Model.Books)
+{
+    <h1>@item.Title</h1>
+}

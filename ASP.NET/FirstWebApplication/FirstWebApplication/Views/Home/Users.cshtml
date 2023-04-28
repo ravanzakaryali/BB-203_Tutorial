@@ -1,1 +1,7 @@
-﻿<h1>Users page</h1>
+﻿@*<h1>@ViewData["Name"]</h1>
+<h1>@TempData["Name"]</h1>
+*@
+
+@model BookVM
+
+<h1>@Model.Title</h1>
