@@ -10,5 +10,8 @@ public class EvaraDbContext : DbContext
 
     }
     public DbSet<Slider> Sliders { get; set; }
-    
+    public DbSet<Color> Colors { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
+
 }
