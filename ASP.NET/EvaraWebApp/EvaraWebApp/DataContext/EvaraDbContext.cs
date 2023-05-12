@@ -13,5 +13,6 @@ public class EvaraDbContext : DbContext
     public DbSet<Color> Colors { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
-
+    public DbSet<Image> Images { get; set; }
+    public DbSet<Setting> Settings { get; set; }
 }

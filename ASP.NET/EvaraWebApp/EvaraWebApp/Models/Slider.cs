@@ -1,9 +1,15 @@
-﻿namespace EvaraWebApp.Models;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EvaraWebApp.Models;
 
 public class Slider
 {
     public int Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string ImageName { get; set; }
+    [Required]
+    [MaxLength(20)]
+    public string Title { get; set; } = null!;
+    public string? Description { get; set; }
+    public string ImageName { get; set; } = null!;
 }

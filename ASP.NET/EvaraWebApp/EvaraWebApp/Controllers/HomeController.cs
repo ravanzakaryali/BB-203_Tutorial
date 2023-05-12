@@ -8,22 +8,24 @@ namespace EvaraWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly EvaraDbContext _dbContext;
+        private readonly EvaraDbContext _context;
         public HomeController(EvaraDbContext evaraDbContext)
         {
-            _dbContext = evaraDbContext;
+            _context = evaraDbContext;
         }
+
         public async Task<IActionResult> Index()
         {
             //date - 5:49
             //--- 10 dəq
             //date - 5:49
-            List<Category> categories = await _dbContext.Categories.Include(c=>c.Products).ToListAsync();
-            List<Slider> sliders = await _dbContext.Sliders.ToListAsync();
-            List<Product> products = await _dbContext.Products.Include(c => c.Category).ToListAsync();
+
+            //List<Category> categories = await _dbContext.Categories.Include(c => c.Products).ToListAsync();
+            List<Slider> sliders = await _context.Sliders.ToListAsync();
+            //List<Product> products = await _context.Products.Include(c=>c.Category).Include(p=>p.Images).ToListAsync();
             HomeVM homeVM = new HomeVM()
             {
-                Products = products,
+                //Products = products,
                 Sliders = sliders
             };
             return View(homeVM);

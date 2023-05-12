@@ -2,7 +2,7 @@
 using EvaraWebApp.DataContext;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -10,13 +10,15 @@ builder.Services.AddControllersWithViews();
 //Singleton - Program run olarken sadece bir object yaradir.
 //Scoped - Hər request yeni bir object yaradır
 //Transient - Hər müraciətdə yeni bir object yaradır
+
 builder.Services.AddDbContext<EvaraDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
-
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -32,6 +34,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+     name: "areas",
+     pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

@@ -8,7 +8,9 @@
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public List<Color> Colors { get; set; }
+        public ICollection<Color> Colors { get; set; }
+        public ICollection<Image> Images { get; set; }
+
         //public List<ColorProduct> ColorProducts { get; set; }
     }
 }

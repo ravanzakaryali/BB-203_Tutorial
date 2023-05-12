@@ -1,5 +1,8 @@
 ﻿using EvaraWebApp.DataContext;
+using EvaraWebApp.Models;
+using EvaraWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EvaraWebApp.Controllers
 {
@@ -10,7 +13,7 @@ namespace EvaraWebApp.Controllers
         {
             _dbContext = evaraDbContext;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
