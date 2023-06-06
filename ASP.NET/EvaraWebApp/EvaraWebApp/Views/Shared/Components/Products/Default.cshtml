@@ -37,7 +37,9 @@
                             <span class="old-price">$245.8</span>
                         </div>
                         <div class="product-action-1 show">
-                            <a aria-label="Add To Cart" asp-controller="Product" asp-action="AddCart" asp-route-id="@item.Id" class="action-btn hover-up"><i class="fi-rs-shopping-bag-add"></i></a>
+                            <button onclick="addCart(this)" value="@item.Id" class="addCartButton" aria-label="Add To Cart" class="action-btn hover-up">
+                                <i class="fi-rs-shopping-bag-add"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

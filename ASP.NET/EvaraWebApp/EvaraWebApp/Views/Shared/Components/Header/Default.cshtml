@@ -1,4 +1,5 @@
-﻿@model Dictionary<string,Setting>
+﻿@using EvaraWebApp.ViewModels.ProductVM;
+@model Dictionary<string,Setting>
 <header class="header-area header-style-1 header-height-2">
     <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
@@ -33,7 +34,22 @@
                                     <li><a href="#"><img src="~/assets/imgs/theme/flag-ru.png" alt="">Pусский</a></li>
                                 </ul>
                             </li>
-                            <li><i class="fi-rs-user"></i><a href="page-login-register.html">Log In / Sign Up</a></li>
+                            @if (Context.User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    @Context.User.Identity.Name
+                                </li>
+                                <li>
+                                    <form method="post" asp-controller="Account" asp-action="Logout">
+                                        <button type="submit">Logout</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li><i class="fi-rs-user"></i><a asp-controller="Account" asp-action="Register">Sign Up</a></li>
+                                <li><i class="fi-rs-user"></i><a asp-controller="Account" asp-action="Login">Log In</a></li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -76,34 +92,25 @@
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="shop-cart.html">
                                     <img alt="Evara" src="~/assets/imgs/theme/icons/icon-cart.svg">
-                                    <span class="pro-count blue">2</span>
+                                    <span id="cartCount" class="pro-count blue">@ViewData["count"]</span>
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="Evara" src="~/assets/imgs/shop/thumbnail-3.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Daisy Casual Bag</a></h4>
-                                                <h4><span>1 × </span>$800.00</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="Evara" src="~/assets/imgs/shop/thumbnail-2.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Corduroy Shirts</a></h4>
-                                                <h4><span>1 × </span>$3200.00</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
+                                        @foreach (CartVM item in (List<CartVM>)ViewData["products"])
+                                        {
+                                            <li>
+                                                <div class="shopping-cart-img">
+                                                    <a href="shop-product-right.html"><img alt="Evara" src="~/assets/imgs/shop/thumbnail-3.jpg"></a>
+                                                </div>
+                                                <div class="shopping-cart-title">
+                                                    <h4><a href="shop-product-right.html">@item.Id</a></h4>
+                                                    <h4><span>1 × </span>$800.00</h4>
+                                                </div>
+                                                <div class="shopping-cart-delete">
+                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                                </div>
+                                            </li>
+                                        }
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">

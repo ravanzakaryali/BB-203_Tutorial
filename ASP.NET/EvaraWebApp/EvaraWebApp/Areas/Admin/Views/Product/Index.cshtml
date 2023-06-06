@@ -25,6 +25,7 @@
                         <th>№</th>
                         <th>Image</th>
                         <th>Name</th>
+                        <th>Colors</th>
                         <th>Price</th>
                         <th>Settings</th>
                     </tr>
@@ -38,6 +39,12 @@
                                 <img style="width: 100px" src="~/assets/imgs/shop/@item.ImageName" />
                             </td>
                             <td>@item.Name</td>
+                            <td>
+                                @foreach(string color in item.Colors)
+                                {
+                                    <p >@color</p>
+                                }
+                            </td>
                             <td>@item.Price</td>
                             <td class="d-flex">
                                 <a asp-controller="Category" asp-action="Detail" asp-route-id="@item.Id"><button class="btn btn-info">Detail</button></a>

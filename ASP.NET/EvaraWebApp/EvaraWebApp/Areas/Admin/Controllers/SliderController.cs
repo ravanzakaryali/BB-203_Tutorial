@@ -1,12 +1,15 @@
 ﻿using EvaraWebApp.DataContext;
+using EvaraWebApp.Extensions;
 using EvaraWebApp.Models;
 using EvaraWebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EvaraWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class SliderController : Controller
 {
 
@@ -37,14 +40,14 @@ public class SliderController : Controller
             return View();
         }
 
-        string guid = Guid.NewGuid().ToString();
-        //string path = _environment.WebRootPath + "assets\\imasgs\\slider\\";
-        string newFileName = guid + slider.Image.FileName;
-        string path = Path.Combine(_environment.WebRootPath, "assets", "imgs", "slider", newFileName);
-        using (FileStream fileStream = new FileStream(path, FileMode.CreateNew))
+        if (!slider.Image.CheckType("image/") && !slider.Image.CheckSize(2048))
         {
-            await slider.Image.CopyToAsync(fileStream);
+            ModelState.AddModelError("Image", "File type must be image or 2mb");
+            return View();
         }
+
+        string newFileName = await slider.Image.UploadAsync(_environment.WebRootPath, "assets", "imgs", "slider");
+
         Slider newSlider = new Slider()
         {
             Description = slider.Description,

@@ -15,12 +15,24 @@
         <input asp-for="Price" class="form-control" id="exampleInputPassword1">
         <span class="text-danger" asp-validation-for="Price"></span>
     </div>
-    <select class="custom-select" asp-for="CategoryId">
-        @foreach (Category item in (List<Category>)ViewData["Categories"])
-        {
-            <option value="@item.Id">@item.Name</option>
-        }
-    </select>
+    <select class="d-none" asp-for="Categories"></select>
+    <select class="d-none" asp-for="Colors"></select>
+    <div class="form-group">
+        <select class="custom-select" asp-for="CategoryId">
+            @foreach (Category item in Model.Categories)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <select class="custom-select" asp-for="ColorsId">
+            @foreach (Color item in Model.Colors)
+            {
+                <option value="@item.Id">@item.Code</option>
+            }
+        </select>
+    </div>
     <span class="text-danger" asp-validation-for="CategoryId"></span>
     <div class="form-group">
         <label asp-for="Images"></label>

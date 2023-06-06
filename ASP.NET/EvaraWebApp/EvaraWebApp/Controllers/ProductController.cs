@@ -15,13 +15,12 @@ public class ProductController : Controller
         _evaraDbContext = evaraDbContext;
     }
 
-    public async Task<IActionResult> AddCart(int id)
+    public async Task<int> AddCart(int id)
     {
         //Cookie append
         Product? product = await _evaraDbContext.Products.FindAsync(id);
         if (product == null)
         {
-            return NotFound();
         }
         //1. Cookie baxıram
         string? value = HttpContext.Request.Cookies["basket"];
@@ -52,9 +51,9 @@ public class ProductController : Controller
         {
             MaxAge = TimeSpan.FromDays(1)
         });
-        return RedirectToAction("Index", "Home");
+        return cartsCookie.Count;
     }
-    public async IActionResult GetCarts()
+    public async Task<IActionResult> GetCarts()
     {
 
         string value = HttpContext.Request.Cookies["basket"];
@@ -65,6 +64,6 @@ public class ProductController : Controller
             Product product = await _evaraDbContext.Products.FindAsync(item.Id);
             products.Add(product);
         }
-        return View(products);
+        return Json(cartVM);
     }
 }

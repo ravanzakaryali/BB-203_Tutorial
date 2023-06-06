@@ -2,6 +2,11 @@
 {
     public class Product
     {
+        public Product()
+        {
+            Colors = new List<Color>();
+            Images = new List<Image>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

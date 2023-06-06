@@ -6,4 +6,5 @@ public class GetProductVM
     public string Name { get; set; } = null!;
     public decimal Price { get; set; }
     public string ImageName { get; set; } = null!;
+    public List<string> Colors { get; set; } 
 }

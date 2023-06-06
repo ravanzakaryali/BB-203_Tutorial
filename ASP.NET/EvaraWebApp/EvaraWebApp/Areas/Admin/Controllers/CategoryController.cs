@@ -1,11 +1,13 @@
 ﻿using EvaraWebApp.DataContext;
 using EvaraWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EvaraWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class CategoryController : Controller
 {
     private readonly EvaraDbContext _evaraDbContext;
