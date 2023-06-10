@@ -2,6 +2,7 @@
 using FirstApiProject.DTOs;
 using FirstApiProject.DTOs.StudentDto;
 using FirstApiProject.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ namespace FirstApiProject.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class StudentsController : ControllerBase
 {
     private readonly AppDbContext _dbContext;
